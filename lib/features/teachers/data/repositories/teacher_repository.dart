@@ -36,6 +36,15 @@ class TeacherRepository {
     required String password,
     String role = StaffRoles.teacher,
   }) async {
+    final trimmedRole = role.trim();
+    // Normalize standard roles to lowercase to stay compatible with base schema constraint
+    // CHECK (role IN ('admin', 'teacher')) even before migration 007 is executed.
+    final normalizedRole = (trimmedRole.toLowerCase() == 'teacher')
+        ? 'teacher'
+        : (trimmedRole.toLowerCase() == 'admin')
+            ? 'admin'
+            : trimmedRole;
+
     try {
       await _supabase.functions.invoke(
         AppConstants.fnCreateTeacher,
@@ -43,7 +52,7 @@ class TeacherRepository {
           'name': name.trim(),
           'email': email.trim(),
           'password': password,
-          'role': role.trim(),
+          'role': normalizedRole,
         },
       );
       return;
@@ -59,7 +68,7 @@ class TeacherRepository {
       name: name,
       email: email,
       password: password,
-      role: role,
+      role: normalizedRole,
     );
   }
 

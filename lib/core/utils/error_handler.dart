@@ -12,12 +12,16 @@ class AppErrorHandler {
     if (error is AuthException) {
       switch (error.statusCode) {
         case '400':
+        case '500':
           final msg = error.message.toLowerCase();
           if (msg.contains('invalid login credentials')) {
             return 'Invalid email or password. Please try again.';
           }
           if (msg.contains('user already registered') || msg.contains('already registered')) {
             return 'An account with this email address already exists.';
+          }
+          if (msg.contains('database error saving new user')) {
+            return 'Database error: Please run migration 007_fix_staff_role_constraint.sql in your Supabase SQL Editor to allow this role.';
           }
           return error.message;
         case '422':
