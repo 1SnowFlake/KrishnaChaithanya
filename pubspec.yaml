@@ -1,0 +1,56 @@
+name: slkc_app
+description: "School Attendance Management App"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.13.7
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # ── Auth + Database ──────────────────────────────────────
+  supabase_flutter: ^2.8.0       # Supabase client (auth + Postgres)
+
+  # ── State Management ────────────────────────────────────
+  flutter_riverpod: ^2.6.0       # Reactive state management
+
+  # ── Routing ─────────────────────────────────────────────
+  go_router: ^14.8.0             # Declarative router with guards
+
+  # ── Offline / Local Database ────────────────────────────
+  drift: ^2.22.0                 # Type-safe SQLite wrapper
+  drift_flutter: ^0.2.0          # Flutter integration for Drift
+  sqlite3_flutter_libs: ^0.5.28  # Bundled SQLite binaries
+
+  # ── Connectivity ────────────────────────────────────────
+  connectivity_plus: ^6.1.0      # Detect online / offline
+  workmanager: ^0.5.2            # Background sync (Android)
+
+  # ── UI Components ───────────────────────────────────────
+  table_calendar: ^3.2.0         # Calendar widget for holidays
+  fl_chart: ^0.70.0              # Charts (attendance trends)
+
+  # ── Export / Import ─────────────────────────────────────
+  pdf: ^3.11.0                   # Generate PDF documents
+  printing: ^5.13.0              # Print / share PDFs
+  csv: ^6.0.0                    # CSV parsing and generation
+  file_picker: ^8.1.0            # Pick files for CSV import
+  share_plus: ^10.1.0            # Share exported files
+
+  # ── Utilities ───────────────────────────────────────────
+  intl: ^0.20.3                  # Date / number formatting
+  flutter_local_notifications: ^18.0.0  # Local push notifications
+  uuid: ^4.5.0                   # Client-generated UUIDs for offline
+  path_provider: ^2.1.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  drift_dev: ^2.22.0             # Drift code generator
+  build_runner: ^2.4.0           # Runs code generators
+
+flutter:
+  uses-material-design: true
