@@ -31,7 +31,7 @@ AS $$
   SELECT EXISTS (
     SELECT 1 FROM profiles
     WHERE id = auth.uid()
-      AND role = 'admin'
+      AND lower(role) = 'admin'
       AND is_active = true
   );
 $$;

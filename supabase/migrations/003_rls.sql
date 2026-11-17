@@ -20,6 +20,7 @@ ALTER TABLE holidays              ENABLE ROW LEVEL SECURITY;
 ALTER TABLE settings              ENABLE ROW LEVEL SECURITY;
 ALTER TABLE substitute_assignments ENABLE ROW LEVEL SECURITY;
 ALTER TABLE notifications         ENABLE ROW LEVEL SECURITY;
+ALTER TABLE teacher_attendance    ENABLE ROW LEVEL SECURITY;
 
 
 -- ============================================================
@@ -216,4 +217,21 @@ CREATE POLICY "user_update_own_notifications"
   ON notifications FOR UPDATE
   USING  (user_id = auth.uid())
   WITH CHECK (user_id = auth.uid());
+
+
+-- ============================================================
+-- TEACHER_ATTENDANCE
+-- ============================================================
+
+-- Admin: full access (create, read, update, delete)
+CREATE POLICY "admin_all_teacher_attendance"
+  ON teacher_attendance FOR ALL
+  USING (is_admin())
+  WITH CHECK (is_admin());
+
+-- Teachers: read their own attendance records
+CREATE POLICY "teacher_read_own_attendance"
+  ON teacher_attendance FOR SELECT
+  USING (teacher_id = auth.uid() AND is_active_user());
+
 

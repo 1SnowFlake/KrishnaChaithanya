@@ -14,8 +14,7 @@ CREATE TABLE profiles (
   id         UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
   name       TEXT        NOT NULL,
   email      TEXT        NOT NULL UNIQUE,
-  role       TEXT        NOT NULL DEFAULT 'teacher'
-                          CHECK (role IN ('admin', 'teacher')),
+  role       TEXT        NOT NULL DEFAULT 'teacher',
   is_active  BOOLEAN     NOT NULL DEFAULT true,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
@@ -148,6 +147,21 @@ CREATE TABLE notifications (
 );
 
 -- ============================================================
+-- 10. TEACHER_ATTENDANCE
+-- ============================================================
+CREATE TABLE teacher_attendance (
+  id         UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  teacher_id UUID NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
+  date       DATE NOT NULL,
+  session    TEXT NOT NULL CHECK (session IN ('morning', 'afternoon')),
+  status     TEXT NOT NULL CHECK (status IN ('present', 'absent')),
+  marked_by  UUID NOT NULL REFERENCES profiles(id),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  UNIQUE (teacher_id, date, session)
+);
+
+-- ============================================================
 -- INDEXES – speed up the queries we know we'll run often
 -- ============================================================
 CREATE INDEX idx_attendance_date          ON attendance(date);
@@ -160,4 +174,6 @@ CREATE INDEX idx_sub_assign_teacher       ON substitute_assignments(teacher_id);
 CREATE INDEX idx_holidays_dates           ON holidays(start_date, end_date);
 CREATE INDEX idx_notifications_user_read  ON notifications(user_id, is_read);
 CREATE INDEX idx_attendance_log_att       ON attendance_log(attendance_id);
+CREATE INDEX idx_teacher_attendance_date  ON teacher_attendance(date);
+CREATE INDEX idx_teacher_attendance_teacher_date ON teacher_attendance(teacher_id, date);
 
