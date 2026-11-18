@@ -13,6 +13,18 @@ class AppConstants {
   static const String tableSettings      = 'settings';
   static const String tableSubstitutes   = 'substitute_assignments';
   static const String tableNotifications = 'notifications';
+  static const String tableTeacherAttendance = 'teacher_attendance';
+
+  // ── AI Learning Assistant tables ──────────────────────
+  static const String tableVideoSearchCache = 'video_search_cache';
+  static const String tableSavedVideos      = 'saved_videos';
+  static const String tableVideoFeedback    = 'video_feedback';
+  static const String tableGeneratedVideos  = 'generated_videos';
+  static const String tableAiUsageLog       = 'ai_usage_log';
+  static const String tableAiRateLimits     = 'ai_rate_limits';
+
+  // ── Storage buckets ───────────────────────────────────
+  static const String bucketLearningMedia   = 'learning_media';
 
   // ── Session values (must match DB CHECK constraints) ──
   static const String sessionMorning   = 'morning';
@@ -27,16 +39,22 @@ class AppConstants {
   static const String roleTeacher = 'teacher';
 
   // ── Edge Function names ───────────────────────────────
-  static const String fnCreateTeacher = 'create-teacher';
+  static const String fnCreateTeacher            = 'create-teacher';
+  static const String fnMissingAttendanceCheck   = 'missing-attendance-check';
+  static const String fnSuggestVideos            = 'suggest-videos';
+  static const String fnGenerateLessonVideo      = 'generate-lesson-video';
 
   // ── Route paths ───────────────────────────────────────
-  static const String pathLogin             = '/login';
-  static const String pathAdminHome         = '/admin';
-  static const String pathAdminReports      = '/admin/reports';
-  static const String pathTeacherHome       = '/teacher';
-  static const String pathTeacherAttendance = '/teacher/attendance';
-  static const String pathDeactivated       = '/deactivated';
-  static const String pathSplash            = '/';
+  static const String pathLogin                  = '/login';
+  static const String pathAdminHome              = '/admin';
+  static const String pathAdminReports           = '/admin/reports';
+  static const String pathAdminAiUsage           = '/admin/ai-usage';
+  static const String pathTeacherHome            = '/teacher';
+  static const String pathTeacherAttendance      = '/teacher/attendance';
+  static const String pathLearningAssistant      = '/learning-assistant';
+  static const String pathGeneratedVideoEditor   = '/learning-assistant/editor';
+  static const String pathDeactivated            = '/deactivated';
+  static const String pathSplash                 = '/';
 }
 
 /// Expanded Staff Roles recognized across the school.
@@ -68,6 +86,46 @@ class StaffRoles {
     doctor,
     psychotherapist,
     admin,
+  ];
+}
+
+/// Recognized special-education learner needs.
+class LearnerNeeds {
+  LearnerNeeds._();
+
+  static const String autismSpectrum          = 'autism_spectrum';
+  static const String adhd                    = 'adhd';
+  static const String intellectualDisability  = 'intellectual_disability';
+  static const String hearingImpairment       = 'hearing_impairment';
+  static const String visualImpairment        = 'visual_impairment';
+  static const String dyslexia                = 'dyslexia';
+  static const String speechLanguageDelay     = 'speech_language_delay';
+  static const String motorPhysicalDisability = 'motor_physical_disability';
+  static const String multipleDisabilities    = 'multiple_disabilities';
+
+  /// Human-readable labels for the UI
+  static const Map<String, String> labels = {
+    autismSpectrum: 'Autism Spectrum',
+    adhd: 'ADHD',
+    intellectualDisability: 'Intellectual Disability',
+    hearingImpairment: 'Hearing Impairment / Deaf',
+    visualImpairment: 'Visual Impairment / Low Vision',
+    dyslexia: 'Dyslexia & Reading Difficulty',
+    speechLanguageDelay: 'Speech & Language Delay',
+    motorPhysicalDisability: 'Motor / Physical Disability',
+    multipleDisabilities: 'Multiple Disabilities',
+  };
+
+  static const List<String> all = [
+    autismSpectrum,
+    adhd,
+    intellectualDisability,
+    hearingImpairment,
+    visualImpairment,
+    dyslexia,
+    speechLanguageDelay,
+    motorPhysicalDisability,
+    multipleDisabilities,
   ];
 }
 
