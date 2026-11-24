@@ -58,7 +58,13 @@ class AuthNotifier extends AsyncNotifier<UserProfile?> {
       final response = await _repository.signIn(email: email, password: password);
       final user = response.user;
       if (user == null) return null;
-      return await _repository.fetchProfile(user.id);
+      final profile = await _repository.fetchProfile(user.id);
+      if (profile == null) {
+        throw Exception(
+          'Account authenticated, but your profile record is missing. Please contact your school administrator.',
+        );
+      }
+      return profile;
     });
   }
 
