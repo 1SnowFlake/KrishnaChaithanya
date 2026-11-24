@@ -16,12 +16,18 @@ class AppConstants {
   static const String tableTeacherAttendance = 'teacher_attendance';
 
   // ── AI Learning Assistant tables ──────────────────────
+  static const String tableAiContent        = 'ai_content';
   static const String tableVideoSearchCache = 'video_search_cache';
   static const String tableSavedVideos      = 'saved_videos';
   static const String tableVideoFeedback    = 'video_feedback';
   static const String tableGeneratedVideos  = 'generated_videos';
   static const String tableAiUsageLog       = 'ai_usage_log';
   static const String tableAiRateLimits     = 'ai_rate_limits';
+
+  // ── AI Content Types ──────────────────────────────────
+  static const String contentTypeLessonPlan = 'lesson_plan';
+  static const String contentTypeWorksheet  = 'worksheet';
+  static const String contentTypeQuiz       = 'quiz';
 
   // ── Storage buckets ───────────────────────────────────
   static const String bucketLearningMedia   = 'learning_media';
@@ -43,6 +49,7 @@ class AppConstants {
   static const String fnMissingAttendanceCheck   = 'missing-attendance-check';
   static const String fnSuggestVideos            = 'suggest-videos';
   static const String fnGenerateLessonVideo      = 'generate-lesson-video';
+  static const String fnGenerateContent          = 'generate-content';
 
   // ── Route paths ───────────────────────────────────────
   static const String pathLogin                  = '/login';
@@ -53,6 +60,11 @@ class AppConstants {
   static const String pathTeacherAttendance      = '/teacher/attendance';
   static const String pathLearningAssistant      = '/learning-assistant';
   static const String pathGeneratedVideoEditor   = '/learning-assistant/editor';
+  static const String pathTeachingTools          = '/teaching-tools';
+  static const String pathLessonPlanGenerator    = '/teaching-tools/lesson-plan';
+  static const String pathWorksheetGenerator     = '/teaching-tools/worksheet';
+  static const String pathQuizGenerator          = '/teaching-tools/quiz';
+  static const String pathAiLibrary              = '/teaching-tools/library';
   static const String pathDeactivated            = '/deactivated';
   static const String pathSplash                 = '/';
 }
@@ -102,6 +114,8 @@ class LearnerNeeds {
   static const String speechLanguageDelay     = 'speech_language_delay';
   static const String motorPhysicalDisability = 'motor_physical_disability';
   static const String multipleDisabilities    = 'multiple_disabilities';
+  static const String mixedAbility            = 'mixed_ability';
+  static const String none                    = 'none';
 
   /// Human-readable labels for the UI
   static const Map<String, String> labels = {
@@ -114,6 +128,8 @@ class LearnerNeeds {
     speechLanguageDelay: 'Speech & Language Delay',
     motorPhysicalDisability: 'Motor / Physical Disability',
     multipleDisabilities: 'Multiple Disabilities',
+    mixedAbility: 'Mixed-Ability Classroom',
+    none: 'Standard / No Accommodations Needed',
   };
 
   static const List<String> all = [
@@ -126,6 +142,8 @@ class LearnerNeeds {
     speechLanguageDelay,
     motorPhysicalDisability,
     multipleDisabilities,
+    mixedAbility,
+    none,
   ];
 }
 
