@@ -9,6 +9,10 @@ import 'package:slkc_app/features/auth/presentation/screens/login_screen.dart';
 import 'package:slkc_app/features/dashboard/presentation/screens/admin_home_screen.dart';
 import 'package:slkc_app/features/dashboard/presentation/screens/teacher_home_screen.dart';
 import 'package:slkc_app/features/reports/presentation/screens/reports_screen.dart';
+import 'package:slkc_app/features/teaching_tools/domain/models/lesson_plan_model.dart';
+import 'package:slkc_app/features/teaching_tools/presentation/screens/lesson_plan_form_screen.dart';
+import 'package:slkc_app/features/teaching_tools/presentation/screens/lesson_plan_result_screen.dart';
+import 'package:slkc_app/features/teaching_tools/presentation/screens/teaching_tools_hub_screen.dart';
 
 /// Splash screen shown briefly while checking initial session & profile.
 class SplashScreen extends StatelessWidget {
@@ -66,6 +70,21 @@ final routerProvider = Provider<GoRouter>((ref) {
             session: extra['session'] as String? ?? AppConstants.sessionMorning,
             isEdit: extra['isEdit'] as bool? ?? false,
           );
+        },
+      ),
+      GoRoute(
+        path: AppConstants.pathTeachingTools,
+        builder: (context, state) => const TeachingToolsHubScreen(),
+      ),
+      GoRoute(
+        path: AppConstants.pathLessonPlanGenerator,
+        builder: (context, state) => const LessonPlanFormScreen(),
+      ),
+      GoRoute(
+        path: '${AppConstants.pathLessonPlanGenerator}/result',
+        builder: (context, state) {
+          final plan = state.extra as LessonPlanModel;
+          return LessonPlanResultScreen(plan: plan);
         },
       ),
     ],

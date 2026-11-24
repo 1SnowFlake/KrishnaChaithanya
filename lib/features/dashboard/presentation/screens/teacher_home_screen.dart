@@ -56,6 +56,11 @@ class TeacherHomeScreen extends ConsumerWidget {
         actions: [
           const NotificationBellButton(),
           IconButton(
+            tooltip: 'AI Teaching Tools',
+            icon: const Icon(Icons.psychology_outlined),
+            onPressed: () => context.push(AppConstants.pathTeachingTools),
+          ),
+          IconButton(
             tooltip: 'Reports & Analytics',
             icon: const Icon(Icons.analytics_outlined),
             onPressed: () {
@@ -125,7 +130,7 @@ class TeacherHomeScreen extends ConsumerWidget {
             // Holiday / Weekly Off Alert Banner (if school closed)
             closureAsync.when(
               loading: () => const SizedBox.shrink(),
-              error: (_, __) => const SizedBox.shrink(),
+              error: (err, stack) => const SizedBox.shrink(),
               data: (closure) {
                 if (!closure.isClosed) return const SizedBox.shrink();
                 final settings = ref.watch(settingsNotifierProvider).value;
@@ -183,6 +188,71 @@ class TeacherHomeScreen extends ConsumerWidget {
                 );
               },
             ),
+
+            // AI Teaching Tools Quick Card
+            Card(
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+                side: BorderSide(
+                  color: theme.colorScheme.primary.withValues(alpha: 0.2),
+                ),
+              ),
+              color: theme.colorScheme.primaryContainer.withValues(alpha: 0.35),
+              child: InkWell(
+                onTap: () => context.push(AppConstants.pathTeachingTools),
+                borderRadius: BorderRadius.circular(12),
+                child: Padding(
+                  padding: const EdgeInsets.all(14),
+                  child: Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: theme.colorScheme.primary,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: const Icon(
+                          Icons.auto_awesome_rounded,
+                          color: Colors.white,
+                          size: 22,
+                        ),
+                      ),
+                      const SizedBox(width: 14),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'AI Teaching Tools',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                                color: theme.colorScheme.onSurface,
+                              ),
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              'Lesson plans, worksheets & quizzes with special-ed accommodations',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: theme.colorScheme.onSurfaceVariant,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        size: 16,
+                        color: theme.colorScheme.primary,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
 
             const Text(
               'My Assigned Classes',
