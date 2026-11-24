@@ -17,6 +17,8 @@
       "request": "launch",
       "type": "dart",
       "args": [
+        "--web-browser-flag=--use-angle=gl",
+        "--web-browser-flag=--ignore-certificate-errors",
         "--dart-define=SUPABASE_URL=https://cnwcambhldsmvpuwgcqj.supabase.co",
         "--dart-define=SUPABASE_ANON_KEY=sb_publishable_IlAsVPCWoKdFl-Xc5RxaYA_SvftODPl"
       ]
@@ -27,6 +29,8 @@
       "type": "dart",
       "flutterMode": "release",
       "args": [
+        "--web-browser-flag=--use-angle=gl",
+        "--web-browser-flag=--ignore-certificate-errors",
         "--dart-define=SUPABASE_URL=https://cnwcambhldsmvpuwgcqj.supabase.co",
         "--dart-define=SUPABASE_ANON_KEY=sb_publishable_IlAsVPCWoKdFl-Xc5RxaYA_SvftODPl"
       ]

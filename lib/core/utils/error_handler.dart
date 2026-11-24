@@ -50,6 +50,9 @@ class AppErrorHandler {
         return 'A record with this information already exists.';
       }
       return error.message;
+    } else if (error.toString().toLowerCase().contains('failed to fetch') ||
+               error.toString().contains('ClientException')) {
+      return 'Connection failed (Failed to fetch). If running in Chrome, launch with `--web-browser-flag=--ignore-certificate-errors` to allow campus firewall certificates.';
     } else if (error.toString().contains('SocketException') ||
                error.toString().contains('Failed host lookup') ||
                error.toString().contains('NetworkException')) {
